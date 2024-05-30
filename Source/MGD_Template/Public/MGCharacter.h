@@ -15,15 +15,17 @@ public:
 	// Sets default values for this character's properties
 	AMGCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	// move the character based on an axis
+	UFUNCTION(BlueprintCallable, Category="Movement")
+	void Pure_MoveCharacter(const FVector2D Axis);
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//rotate the character controller based on axis
+	UFUNCTION(BlueprintCallable, Category="Controller")
+	void Pure_RotateController(const FVector2D Axis);
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+public:
+	//move axis of the character
+	UPROPERTY(BlueprintReadOnly, Category="Movement")
+	FVector2D pMoveAxis;
 
 };

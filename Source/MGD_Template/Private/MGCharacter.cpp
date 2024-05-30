@@ -11,24 +11,23 @@ AMGCharacter::AMGCharacter()
 
 }
 
-// Called when the game starts or when spawned
-void AMGCharacter::BeginPlay()
+void AMGCharacter::Pure_MoveCharacter(const FVector2D Axis)
 {
-	Super::BeginPlay();
-	
+	//update the member axis
+	pMoveAxis = Axis;
+
+	//move character based on Y Axis
+	AddMovementInput(GetControlRotation().Vector(), Axis.Y);
+
+	//move character based on X Axis
+	AddMovementInput(FRotationMatrix(GetControlRotation()).GetScaledAxis(EAxis::Y), Axis.X);
 }
 
-// Called every frame
-void AMGCharacter::Tick(float DeltaTime)
+void AMGCharacter::Pure_RotateController(const FVector2D Axis)
 {
-	Super::Tick(DeltaTime);
+	//rotate the controller Yaw based on X Axis
+	AddControllerYawInput(Axis.X);
 
+	//rotate the controller Pitch based on Y Axis
+	AddControllerPitchInput(-Axis.Y);
 }
-
-// Called to bind functionality to input
-void AMGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
