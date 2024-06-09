@@ -23,9 +23,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Controller")
 	void Pure_RotateController(const FVector2D Axis);
 
+protected:
+	UFUNCTION(Server, Reliable, Category="Replication")
+	void Server_RepPitch(const float& Pitch);
+
+	UFUNCTION(NetMulticast, Reliable, Category="Replication")
+	void Multi_RepPitch(const float& Pitch);
+
 public:
 	//move axis of the character
 	UPROPERTY(BlueprintReadOnly, Category="Movement")
 	FVector2D pMoveAxis;
+
+	//replicated pitch for the character
+	UPROPERTY(BlueprintReadOnly, Category="Pitch")
+	float pRepPitch;
 
 };
