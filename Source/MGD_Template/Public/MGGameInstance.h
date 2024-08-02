@@ -43,6 +43,10 @@ public:
 	// find a hosted game and if found join the session
 	UFUNCTION(BlueprintCallable, Category="Session")
 	void FindAndJoinSession();
+
+	// start a lobby game if one exists
+	UFUNCTION(BlueprintCallable, Category="Session")
+	void StartLobbyGame();
 	
 	// only this class and derived/child classes can access this function
 protected:

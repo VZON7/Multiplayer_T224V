@@ -4,6 +4,7 @@
 #include "MGGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "GameFramework/GameModeBase.h"
 #include "Online/OnlineSessionNames.h"
 
 UMGGameInstance::UMGGameInstance()
@@ -145,7 +146,7 @@ bool UMGGameInstance::IsInSession() const
 }
 
 void UMGGameInstance::HostGame(bool lan)
-{
+ {
 	// are we logged in
 	if (!IsLoggedIn())
 		return;
@@ -187,6 +188,12 @@ void UMGGameInstance::FindAndJoinSession()
 	sessionRef->FindSessions(0,FoundSessions.ToSharedRef());
 }
 
+void UMGGameInstance::StartLobbyGame()
+{
+	GetWorld()->GetAuthGameMode()->bUseSeamlessTravel = true;
+	GetWorld()->ServerTravel("/Game/MyContent/Maps/Lvl_Test", false);
+}
+
 void UMGGameInstance::EOSLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId& UserId,
                                        const FString& Error)
 {
@@ -204,6 +211,7 @@ void UMGGameInstance::SessionFindComplete(bool bWasSuccessful)
 	if (!bWasSuccessful)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to find session"))
+		OnSessionJoinComplete(false);
 		return;
 	}
 
@@ -221,6 +229,7 @@ void UMGGameInstance::SessionFindComplete(bool bWasSuccessful)
 	if (FoundSessions->SearchResults.IsEmpty())
 	{
 		UE_LOG(LogTemp, Error, TEXT("No sessions found"))
+		OnSessionJoinComplete(false);
 		return;
 	}
 
