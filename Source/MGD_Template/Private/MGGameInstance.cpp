@@ -135,7 +135,7 @@ bool UMGGameInstance::IsInSession() const
 	const IOnlineSessionPtr sessionRef = Online::GetSubsystem(GetWorld())->GetSessionInterface();
 
 	// make sure there is a session interface
-	if (sessionRef)
+	if (!sessionRef)
 		return false;
 
 	// get locally store the session state
