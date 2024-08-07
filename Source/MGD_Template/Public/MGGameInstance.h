@@ -47,6 +47,9 @@ public:
 	// start a lobby game if one exists
 	UFUNCTION(BlueprintCallable, Category="Session")
 	void StartLobbyGame();
+
+	UFUNCTION(BlueprintCallable, Category="Session")
+	void EndLobbyGame();
 	
 	// only this class and derived/child classes can access this function
 protected:
