@@ -191,7 +191,7 @@ void UMGGameInstance::FindAndJoinSession()
 void UMGGameInstance::StartLobbyGame()
 {
 	GetWorld()->GetAuthGameMode()->bUseSeamlessTravel = true;
-	GetWorld()->ServerTravel("/Game/MyContent/Maps/Lvl_Test", false);
+	GetWorld()->ServerTravel("/Game/MyContent/Maps/AS2_Test", false);
 }
 
 void UMGGameInstance::EndLobbyGame()
